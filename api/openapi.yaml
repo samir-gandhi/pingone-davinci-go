@@ -1,0 +1,1012 @@
+openapi: 3.0.0
+info:
+  title: DaVinci Copy
+  version: 1.0.0
+servers:
+- url: "http://{{baseurl}}"
+tags:
+- name: Authenticate
+- name: Environments
+- name: Company
+- name: Team / Customers
+- name: Roles
+- name: Connections
+- name: Flows
+- name: Applications
+- name: Variables
+paths:
+  /v1/customers/login:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                email: "{{superUser}}"
+                password: "{{superPassword}}"
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - noauthAuth: []
+      summary: POST Login - Not Sandbox (Get an access token)
+      tags:
+      - Authenticate
+  /v1/company/{skCompanyId}/switch:
+    put:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example: ""
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: SET Current Environment
+      tags:
+      - Environments
+  /v1/customers/me:
+    get:
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ ALL Environments
+      tags:
+      - Environments
+  /v1/company/{skCompanyId}/stats:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: GET Current Environment Statistics
+      tags:
+      - Environments
+  /v1/company/{skCompanyId}:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ Company
+      tags:
+      - Company
+  /v1/company:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                companyId: "{{p1EnvId}}"
+                name: "{{p1EnvName}}"
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: CREATE Company
+      tags:
+      - Company
+  /v1/company/{skCompanyId}/customers:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ ALL Customers
+      tags:
+      - Team / Customers
+    post:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                email: "{{p1AdminEmail}}"
+                password: "{{skDefaultAdminPassword}}"
+                firstName: "{{p1AdminFirstName}}"
+                lastName: "{{p1AdminLastName}}"
+                roles:
+                - default:admin
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: CREATE Customer
+      tags:
+      - Team / Customers
+  /v1/company/{skCompanyId}/customers/{skCustomerId}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skCustomerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: DELETE Customer
+      tags:
+      - Team / Customers
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skCustomerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                firstName: "{{p1AdminFirstName}}"
+                lastName: "{{p1AdminLastName}}"
+                roles:
+                - default:admin
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: UPDATE Customer
+      tags:
+      - Team / Customers
+  /v1/company/{skCompanyId}/roles:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ Roles
+      tags:
+      - Roles
+    post:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                name: ""
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: CREATE Role
+      tags:
+      - Roles
+  /v1/company/{skCompanyId}/roles/{skRoleName}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skRoleName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: DELETE Role
+      tags:
+      - Roles
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: skCompanyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skRoleName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                description: ""
+                policy:
+                - resource: ""
+                  actions:
+                  - action: ""
+                    allow: true
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: UPDATE Role
+      tags:
+      - Roles
+  /v1/connections:
+    get:
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ ALL Configured Connections
+      tags:
+      - Connections
+    post:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                name: "PingOne_{{$timestamp}}"
+                connectorId: pingOneSSOConnector
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: CREATE Connection
+      tags:
+      - Connections
+  /v1/connections/{skConnectionId}:
+    delete:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skConnectionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: DELETE Connection
+      tags:
+      - Connections
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: skConnectionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ One Connection
+      tags:
+      - Connections
+    put:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skConnectionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                properties:
+                  envId:
+                    value: "1234"
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: UPDATE Connection
+      tags:
+      - Connections
+  /v1/connectors:
+    get:
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ ALL Available Connectors (Base 64 Encoded)
+      tags:
+      - Connections
+  /v1/flows:
+    get:
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ ALL Flows
+      tags:
+      - Flows
+    post:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                name: "SK Flow_{{$timestamp}}"
+                description: This is my flow!
+                graphData:
+                  elements:
+                    nodes:
+                    - data:
+                        id: "{{$randomUUID}}"
+                        nodeType: CONNECTION
+                        connectionId: "{{skConnectionId}}"
+                        connectorId: httpConnector
+                        name: Http
+                        label: Http
+                        status: configured
+                        capabilityName: createSuccessResponse
+                        type: action
+                        properties: {}
+                      position:
+                        x: 400
+                        "y": 400
+                      group: nodes
+                      removed: false
+                      selected: false
+                      selectable: true
+                      locked: false
+                      grabbable: true
+                      pannable: false
+                      classes: ""
+                  data: {}
+                  zoomingEnabled: true
+                  userZoomingEnabled: true
+                  zoom: 1
+                  minZoom: 1.0E-50
+                  maxZoom: 1.0E50
+                  panningEnabled: true
+                  userPanningEnabled: true
+                  pan:
+                    x: 0
+                    "y": 0
+                  boxSelectionEnabled: true
+                  renderer:
+                    name: "null"
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: CREATE Flow
+      tags:
+      - Flows
+  /v1/flows/{skFlowId}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: skFlowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: DELETE Flow
+      tags:
+      - Flows
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: skFlowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ One Flow
+      tags:
+      - Flows
+    put:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skFlowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                graphData:
+                  elements:
+                    nodes:
+                    - data:
+                        id: ac4b6572-b483-4031-bff8-79686c23bd91
+                        nodeType: CONNECTION
+                        connectionId: 94141bf2f1b9b59a5f5365ff135e02bb
+                        connectorId: httpConnector
+                        name: Http
+                        label: Http
+                        status: configured
+                        capabilityName: createSuccessResponse
+                        type: action
+                        properties: {}
+                      position:
+                        x: 400
+                        "y": 400
+                      group: nodes
+                      removed: false
+                      selected: false
+                      selectable: true
+                      locked: false
+                      grabbable: true
+                      pannable: false
+                      classes: ""
+                  data: {}
+                  zoomingEnabled: true
+                  userZoomingEnabled: true
+                  zoom: 1
+                  minZoom: 1.0E-50
+                  maxZoom: 1.0E50
+                  panningEnabled: true
+                  userPanningEnabled: true
+                  pan:
+                    x: 0
+                    "y": 0
+                  boxSelectionEnabled: true
+                  renderer:
+                    name: "null"
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: UPDATE Flow
+      tags:
+      - Flows
+  /v1/flows/{skFlowId}/versions:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: skFlowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ Flow Versions
+      tags:
+      - Flows
+  /v1/flows/apps/flowsVersions:
+    get:
+      parameters:
+      - description: "Base 64 Encoded format - [{\"flowId\":\"<your flow id>\", \"\
+          versionId\":<your version>}]"
+        example: "{{skFlowsVersion}}"
+        explode: true
+        in: query
+        name: flowsVersions
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ Flow Version Details
+      tags:
+      - Flows
+  /v1/flows/{skFlowId}/deploy:
+    put:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skFlowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example: ""
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: DEPLOY Flow
+      tags:
+      - Flows
+  /v1/apps:
+    get:
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ ALL Apps
+      tags:
+      - Applications
+    post:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                name: "SK App_{{$timestamp}}"
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: CREATE App
+      tags:
+      - Applications
+  /v1/apps/{skAppId}:
+    delete:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skAppId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: DELETE App
+      tags:
+      - Applications
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: skAppId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ One App
+      tags:
+      - Applications
+    put:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skAppId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                apiKeyEnabled: false
+                name: SK App_1638990059
+                oauth:
+                  enabled: true
+                  values:
+                    enabled: true
+                    clientSecret: OnivxFthkCr2tpoU432x4tqmFTGqfHoIr6xnzBjmX14XIlslEGK1RM2yn4t5fomz
+                    redirectUris: []
+                    logoutUris: []
+                    allowedScopes:
+                    - openid
+                    - profile
+                    allowedGrants:
+                    - authorizationCode
+                saml:
+                  values:
+                    enabled: false
+                flows: []
+                policies: []
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: UPDATE App
+      tags:
+      - Applications
+  /v1/apps/{skAppId}/policy:
+    post:
+      parameters:
+      - example: application/json
+        explode: false
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: skAppId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                name: "SK Flow Policy_{{$timestamp}}"
+                status: enabled
+                flows:
+                - flowId: "{{skFlowId}}"
+                  versionId: -1
+                  weight: 100
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: CREATE App Flow Policy
+      tags:
+      - Applications
+  /v1/constructs:
+    get:
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: READ Variables
+      tags:
+      - Variables
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                displayName: ""
+                type: ""
+                value: ""
+                mutable: true
+                context: ""
+                name: ""
+              type: object
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: CREATE Variable
+      tags:
+      - Variables
+  /v1/constructs/{skVariableId}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: skVariableId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      security:
+      - bearerAuth: []
+      summary: DELETE Variable
+      tags:
+      - Variables
+components:
+  schemas: {}
+  securitySchemes:
+    noauthAuth:
+      scheme: noauth
+      type: http
+    bearerAuth:
+      scheme: bearer
+      type: http
