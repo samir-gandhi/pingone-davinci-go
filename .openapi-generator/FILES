@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -9,6 +8,7 @@ api_company.go
 api_connections.go
 api_environments.go
 api_flows.go
+api_healthcheck.go
 api_roles.go
 api_team_customers.go
 api_variables.go
@@ -20,6 +20,7 @@ docs/CompanyApi.md
 docs/ConnectionsApi.md
 docs/EnvironmentsApi.md
 docs/FlowsApi.md
+docs/HealthcheckApi.md
 docs/RolesApi.md
 docs/TeamCustomersApi.md
 docs/VariablesApi.md

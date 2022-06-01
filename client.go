@@ -61,6 +61,8 @@ type APIClient struct {
 
 	FlowsApi *FlowsApiService
 
+	HealthcheckApi *HealthcheckApiService
+
 	RolesApi *RolesApiService
 
 	TeamCustomersApi *TeamCustomersApiService
@@ -90,6 +92,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ConnectionsApi = (*ConnectionsApiService)(&c.common)
 	c.EnvironmentsApi = (*EnvironmentsApiService)(&c.common)
 	c.FlowsApi = (*FlowsApiService)(&c.common)
+	c.HealthcheckApi = (*HealthcheckApiService)(&c.common)
 	c.RolesApi = (*RolesApiService)(&c.common)
 	c.TeamCustomersApi = (*TeamCustomersApiService)(&c.common)
 	c.VariablesApi = (*VariablesApiService)(&c.common)

@@ -14,6 +14,7 @@ tags:
 - name: Flows
 - name: Applications
 - name: Variables
+- name: Healthcheck
 paths:
   /v1/customers/login:
     post:
@@ -1001,6 +1002,16 @@ paths:
       summary: DELETE Variable
       tags:
       - Variables
+  /:
+    get:
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: New Request
+      tags:
+      - Healthcheck
 components:
   schemas: {}
   securitySchemes:

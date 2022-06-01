@@ -104,6 +104,7 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**V1FlowsSkFlowIdGet**](docs/FlowsApi.md#v1flowsskflowidget) | **Get** /v1/flows/{skFlowId} | READ One Flow
 *FlowsApi* | [**V1FlowsSkFlowIdPut**](docs/FlowsApi.md#v1flowsskflowidput) | **Put** /v1/flows/{skFlowId} | UPDATE Flow
 *FlowsApi* | [**V1FlowsSkFlowIdVersionsGet**](docs/FlowsApi.md#v1flowsskflowidversionsget) | **Get** /v1/flows/{skFlowId}/versions | READ Flow Versions
+*HealthcheckApi* | [**RootGet**](docs/HealthcheckApi.md#rootget) | **Get** / | New Request
 *RolesApi* | [**V1CompanySkCompanyIdRolesGet**](docs/RolesApi.md#v1companyskcompanyidrolesget) | **Get** /v1/company/{skCompanyId}/roles | READ Roles
 *RolesApi* | [**V1CompanySkCompanyIdRolesPost**](docs/RolesApi.md#v1companyskcompanyidrolespost) | **Post** /v1/company/{skCompanyId}/roles | CREATE Role
 *RolesApi* | [**V1CompanySkCompanyIdRolesSkRoleNameDelete**](docs/RolesApi.md#v1companyskcompanyidrolesskrolenamedelete) | **Delete** /v1/company/{skCompanyId}/roles/{skRoleName} | DELETE Role
